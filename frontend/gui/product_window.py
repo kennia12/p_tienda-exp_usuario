@@ -1,5 +1,3 @@
-# frontend/gui/product_view.py
-
 import ttkbootstrap as ttk
 from backend.controllers.product_controller import get_all_products
 from frontend.gui.cart_view import build_cart_frame
@@ -13,11 +11,18 @@ def build_product_frame(root):
     products = get_all_products(limit=20)
     cart = []
 
+    def add_to_cart(product):
+        for item in cart:
+            if item["name"] == product["name"]:
+                item["quantity"] += 1
+                return
+        cart.append({**product, "quantity": 1})
+
     for product in products:
         product_frame = ttk.Frame(frame)
         product_frame.pack(fill="x", pady=2)
 
         ttk.Label(product_frame, text=f"{product['name']} - ${product['price']}").pack(side="left")
-        ttk.Button(product_frame, text="Agregar al carrito", command=lambda p=product: cart.append(p)).pack(side="right")
+        ttk.Button(product_frame, text="Agregar al carrito", command=lambda p=product: add_to_cart(p)).pack(side="right")
 
     ttk.Button(frame, text="Ver carrito", bootstyle="info", command=lambda: build_cart_frame(root, cart)).pack(pady=10)
