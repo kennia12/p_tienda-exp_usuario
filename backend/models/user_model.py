@@ -1,4 +1,5 @@
 # backend/models/user_model.py
+from datetime import datetime
 
 def user_schema(email, password, role="cliente"):
     return {

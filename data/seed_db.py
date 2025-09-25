@@ -6,6 +6,8 @@ from config.env import COLLECTION_PRODUCTS, COLLECTION_USERS
 from backend.models.user_model import user_schema
 import time
 import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 # Configuración visual
 TOTAL = 500_000
